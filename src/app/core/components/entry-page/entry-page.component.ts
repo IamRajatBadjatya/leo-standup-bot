@@ -14,9 +14,7 @@ export class EntryPageComponent implements OnInit {
   ngOnInit() {
     this.code = this.activatedRoute.snapshot.queryParamMap.get('code');
     console.log('code', this.code);
-    this.activatedRoute.url.subscribe((urlSegment) => {
-      console.log('urlSegment', urlSegment);
-      // .substring(0, this.activatedRoute.url.indexOf('?'));
-    });
+    const url: string = this.router.url.substring(0, this.router.url.indexOf('?'));
+    this.router.navigateByUrl(url);
   }
 }
