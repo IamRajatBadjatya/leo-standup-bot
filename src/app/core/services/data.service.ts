@@ -4,16 +4,21 @@ import 'rxjs/add/operator/map';
 import { Response, Http } from '@angular/http';
 import 'rxjs/add/observable/throw';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 // import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class DataService {
   constructor(private url, private http: HttpClient) {}
 
-  getAll() {
+  getAll(endPoint, params) {
     return this.http
-      .get(this.url)
+      .get(this.url + endPoint, {
+        params: params,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
       .map(response => response)
       .catch(this.handleError);
   }
@@ -42,7 +47,9 @@ export class DataService {
       .map(response => response)
       .catch(this.handleError);
   }
-
+  get tokenDetails(): any {
+    return JSON.parse(localStorage.getItem('tokenDetails'));
+  }
   private handleError(error: Response) {
     if (error.status === 400) return Observable.throw(new Error());
     if (error.status === 404) return Observable.throw(new Error());

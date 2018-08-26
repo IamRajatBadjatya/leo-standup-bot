@@ -1,0 +1,44 @@
+<div class="page-wrapper">
+  <form [formGroup]="fG" (ngSubmit)="onSubmit(fG.value)">
+    <div class="field channels-list">
+      <h3>Select Channel on which you want to conduct your standup?</h3>
+      <mat-form-field>
+        <mat-select placeholder="Your Channels" name="channels" (selectionChange)="onChannelSelection($event);" formControlName="channelsControl"
+          required>
+          <mat-option>Select your channel</mat-option>
+          <mat-option *ngFor="let channel of channels" [value]="channel.id">
+            {{channel.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="fG.hasError('required')">Please choose a channel</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="field channels-list" *ngIf="selectedChannel">
+      <h3>Attendees?</h3>
+      <mat-radio-group class="example-radio-group" (change)="OnUserTypeSelection($event)" formControlName="radioControl">
+        <mat-radio-button value="all" class="example-radio-button">
+          All Members in the channel
+        </mat-radio-button>
+        <mat-radio-button value="selected" class="example-radio-button">
+          Selected Members
+        </mat-radio-button>
+      </mat-radio-group>
+      <mat-error *ngIf="fG.hasError('required')">Please choose a channel</mat-error>
+    </div>
+    <div class="field channels-list" *ngIf="enableAutoComplete">
+      <h3>Members</h3>
+      <mat-form-field>
+        <mat-select placeholder="Members" (selectionChange)="onMemberSelection($event);" formControlName="myControl" multiple>
+          <mat-option *ngFor="let user of usersProfile" [value]="user?.id">
+            {{user?.real_name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="fG.hasError('required')">Please choose a channel</mat-error>
+    </div>
+  </form>
+</div>
+
+<!-- <mat-option *ngFor="let user of usersProfile" [value]="user?.id">
+  {{user?.real_name}}
+</mat-option> -->
