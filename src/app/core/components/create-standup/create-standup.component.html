@@ -1,5 +1,6 @@
 <div class="page-wrapper">
   <form [formGroup]="fG" (ngSubmit)="onSubmit(fG.value)">
+
     <div class="field channels-list">
       <h3>Select Channel on which you want to conduct your standup?</h3>
       <mat-form-field>
@@ -13,6 +14,7 @@
         <mat-error *ngIf="fG.hasError('required')">Please choose a channel</mat-error>
       </mat-form-field>
     </div>
+
     <div class="field channels-list" *ngIf="selectedChannel">
       <h3>Attendees?</h3>
       <mat-radio-group class="example-radio-group" (change)="OnUserTypeSelection($event)" formControlName="radioControl">
@@ -25,18 +27,62 @@
       </mat-radio-group>
       <mat-error *ngIf="fG.hasError('required')">Please choose a channel</mat-error>
     </div>
+
     <div class="field channels-list" *ngIf="enableAutoComplete">
       <h3>Members</h3>
-      <mat-form-field>
-        <mat-select placeholder="Members" (selectionChange)="onMemberSelection($event);" formControlName="myControl" multiple>
-          <mat-option *ngFor="let user of usersProfile" [value]="user?.id">
-            {{user?.real_name}}
+      <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let member of selectedMembers" [selectable]="selectable" [removable]="removable" (removed)="remove(member)">
+            <img [src]="member.profile.image_32"> {{member.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Type a name to add attendant" #inputText formControlName="memberControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let member of filteredMembers | async" [value]="member">
+            <img [src]="member.profile.image_32"> {{member?.name}}
           </mat-option>
-        </mat-select>
+        </mat-autocomplete>
       </mat-form-field>
-      <mat-error *ngIf="fG.hasError('required')">Please choose a channel</mat-error>
+    </div>
+
+    <div class="field channels-list" *ngIf="selectedMembers.length > 0" formGroupName="questions">
+      <h3>Set Questions</h3>
+      <mat-form-field>
+        <input matInput formControlName="yTask" placeholder="1st Question">
+      </mat-form-field>
+      <mat-error *ngIf="fG.hasError('required')">Please set atleast 3 questions</mat-error>
+      <mat-form-field>
+        <input matInput formControlName="tTask" placeholder="2nd Question">
+      </mat-form-field>
+      <mat-error *ngIf="fG.hasError('required')">Please set atleast 3 questions</mat-error>
+      <mat-form-field>
+        <input matInput formControlName="blocker" placeholder="3rd Question">
+      </mat-form-field>
+      <mat-error *ngIf="fG.hasError('required')">Please set atleast 3 questions</mat-error>
+    </div>
+    <div class="field channels-list" *ngIf="selectedMembers.length > 0">
+      <h3>When to conduct standup?</h3>
+      <mat-form-field>
+        <input matInput type="time" formControlName="time" placeholder="What's the right time to start stand-up ">
+      </mat-form-field>
+      <mat-error *ngIf="fG.hasError('required')">Please set atleast 3 questions</mat-error>
+      <div>
+        <span  *ngFor="let day of days; let i=index">
+          <mat-checkbox (change)="onDaySelection($event)" [value]="day"> {{day}} </mat-checkbox>
+        </span>
+      </div>
+      <mat-error *ngIf="fG.hasError('required')">Please set atleast 3 questions</mat-error>
+
+      <button type="submit" class="sbmt-btn" mat-raised-button color="primary" [disabled]="!fG.valid">
+        Submit
+      </button>
+      
     </div>
   </form>
+
+  <pre>{{ fG.value | json }}</pre>
 </div>
 
 <!-- <mat-option *ngFor="let user of usersProfile" [value]="user?.id">

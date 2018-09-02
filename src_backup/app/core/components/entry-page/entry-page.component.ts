@@ -28,12 +28,12 @@ export class EntryPageComponent implements OnInit {
     this.code = this.activatedRoute.snapshot.queryParamMap.get('code');
     console.log(this.code);
     this.code =
-    '421262484307.427234075825.f4f545776b6ea0c88cd6b843ef5932ff42a59994e5afe6494f9d16a8547ce7ce';
-    // this.accessToken =
-    //   'xoxp-398613085782-398613086374-397274066931-e3f6e40156be030d36ed940f9e58c1bc';
+    '421262484307.425566682054.956485d6e457a308c842ebd11c12106a65ec9fa3385c7e0ef7495cf777ba6553';
     const url: string = this.router.url.substring(0, this.router.url.indexOf('?'));
-    this.clientId = '421262484307.427093322997';
-    this.clientSecret = '61915dd9a9ce4b39833a206900fe5e71';
+
+    this.clientId = '398613085782.398432591687';
+    this.clientSecret = '43ff0f4153811c4c2b64c4c551f20ce0';
+
     this.router.navigateByUrl(url);
   }
   createStandup() {
@@ -55,28 +55,15 @@ export class EntryPageComponent implements OnInit {
         "bot_access_token": "xoxb-398613085782-396848718721-LtBm9xmfYASTqqSeRSHsFlxG"
       }
     }*/
-    // localStorage.removeItem('tokenDetails');
     const resource = `client_id=${this.clientId}&client_secret=${
       this.clientSecret
     }&code=${this.code}`;
+    console.log(resource);
     if (!this.service.tokenDetails)
       this.service.getAccessToken(resource).subscribe(response => {
-        localStorage.setItem('tokenDetails', JSON.stringify(response));
-        this.accessToken = response.access_token;
-        this.teamId = response.team_id;
-        this.teamName = response.team_name;
-        this.userId = response.user_id;
-        this.botAccessToken = response.bot.access_token;
-        this.botUserId = response.botUserId;
+        sessionStorage.setItem('tokenDetails', JSON.stringify(response));
         this.router.navigate(['/create-standup']);
       });
     else this.router.navigate(['/create-standup']);
   }
 }
-/*
-conversationUpdateconversationUpdate
-https://slack.com/oauth/authorize?scope=bot&client_id=421262484307.427093322997&redirect_uri=https%3a%2f%2fslack.botframework.com%2fHome%2fauth&state=standup-bot
-
-https://slack.botframework.com/Dev/Validate
-<a href="https://slack.com/oauth/authorize?scope=bot&client_id=421262484307.427093322997&redirect_uri=https%3a%2f%2fslack.botframework.com%2fHome%2fauth&state=standup-bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
- */

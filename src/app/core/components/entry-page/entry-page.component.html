@@ -1,2 +1,4 @@
-<a href="https://slack.com/oauth/authorize?client_id=398613085782.398432591687&scope=bot,channels:history,channels:read,channels:write,team:read"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
-<div *ngIf="code"><button (click)="createStandup()">Create Standup</button></div>
+<!-- <a *ngIf="!code" href="https://slack.com/oauth/authorize?client_id=398613085782.398432591687&scope=bot,channels:history,channels:read,channels:write,team:read"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a> -->
+
+<a *ngIf="!code" href="https://slack.com/oauth/authorize?client_id=421262484307.427093322997&scope=bot,channels:read,channels:write,chat:write:bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+<button *ngIf="code" mat-raised-button (click)="createStandup()"  color="primary">Create Standup</button>

@@ -1,0 +1,28 @@
+.wrapper {
+    padding: 32px 16px;
+}
+.report-card {
+    max-width: 400px;
+    margin: 16px;
+    float: left;
+    padding: 0;
+  }
+  .report-card-header {
+      padding: 16px;
+      border-bottom: 1px solid #d3d3d3;
+  }
+  .report-header-image {
+    background-size: cover;
+  }
+  .question {
+    border-bottom: 1px solid #d3d3d3;
+    border-left: 3px solid #f9ca24;
+    padding: 16px;
+  }
+  .question:first-child {
+    border-left: 3px solid #badc58;
+  }
+  .question:last-child {
+    border-left: 3px solid #eb4d4b;
+    border-bottom: 0;
+  }

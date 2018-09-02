@@ -10,11 +10,6 @@ import { CreateStandupComponent } from './components/create-standup/create-stand
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ProjectsService } from './services/projects.service';
-import { UsersService } from './services/users.service';
-import { ReportPageComponent } from './components/report-page/report-page.component';
-import { TasksService } from './services/tasks.service';
-import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   imports: [
@@ -25,7 +20,7 @@ import { SafePipe } from './pipes/safe.pipe';
     ReactiveFormsModule,
     FlexLayoutModule
   ],
-  declarations: [EntryPageComponent, CreateStandupComponent, ReportPageComponent, SafePipe],
-  providers: [SlackApiService, ProjectsService, UsersService, TasksService]
+  declarations: [EntryPageComponent, CreateStandupComponent],
+  providers: [SlackApiService]
 })
 export class CoreModule { }
