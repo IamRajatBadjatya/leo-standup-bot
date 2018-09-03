@@ -27,8 +27,8 @@ export class EntryPageComponent implements OnInit {
   ngOnInit() {
     this.code = this.activatedRoute.snapshot.queryParamMap.get('code');
     console.log(this.code);
-    this.code =
-    '421262484307.427234075825.f4f545776b6ea0c88cd6b843ef5932ff42a59994e5afe6494f9d16a8547ce7ce';
+    // this.code =
+    // '421262484307.427234075825.f4f545776b6ea0c88cd6b843ef5932ff42a59994e5afe6494f9d16a8547ce7ce';
     // this.accessToken =
     //   'xoxp-398613085782-398613086374-397274066931-e3f6e40156be030d36ed940f9e58c1bc';
     const url: string = this.router.url.substring(0, this.router.url.indexOf('?'));

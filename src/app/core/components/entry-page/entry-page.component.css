@@ -1,3 +1,13 @@
-.page-wrapper {
+.wrapper {
+    margin: 10% auto;
+    width: 50%;
     text-align: center;
+  }
+.page-heading {
+    font-size: 64px;
+    margin: 16px;
+}
+.welcome{
+    font-size: 16px;
+    margin: 16px;
 }
